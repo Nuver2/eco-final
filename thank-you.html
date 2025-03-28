@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You for Your Purchase | VAST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #e2fce7;
+      --green-dark: #2b7a2b;
+      --green-main: #4caf50;
+      --text-dark: #1e3921;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e2fce7, #d1f8db);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .thank-you-container {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h1 {
+      color: var(--green-dark);
+      margin-bottom: 20px;
+    }
+    .checkmark {
+      font-size: 4rem;
+      color: var(--green-main);
+      margin-bottom: 20px;
+    }
+    .order-details {
+      background: var(--bg-light);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .order-details p {
+      margin: 10px 0;
+    }
+    .back-btn {
+      padding: 12px 30px;
+      background-color: var(--green-main);
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    .back-btn:hover {
+      background-color: var(--green-dark);
+    }
+    @media (max-width: 600px) {
+      .thank-you-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-container">
+    <div class="checkmark">✓</div>
+    <h1>Thank You for Your Purchase!</h1>
+    <p>Your order has been received and is being processed.</p>
+    
+    <div class="order-details" id="orderDetails">
+      <!-- Order details will be inserted here by JavaScript -->
+    </div>
+    
+    <p>We've sent a confirmation email with your order details.</p>
+    <button class="back-btn" onclick="window.location.href='index.html'">Back to Home</button>
+  </div>
+
+  <script>
+    // Получаем данные заказа из localStorage
+    const orderData = JSON.parse(localStorage.getItem('orderData'));
+    const orderDetails = document.getElementById('orderDetails');
+    
+    if (orderData) {
+      orderDetails.innerHTML = `
+        <p><strong>Model:</strong> ${orderData.model}</p>
+        <p><strong>Price:</strong> €${orderData.price}</p>
+        <p><strong>Order Date:</strong> ${orderData.date}</p>
+        <p><strong>Email:</strong> ${orderData.email}</p>
+        <p><strong>Phone:</strong> ${orderData.phone}</p>
+        <p><strong>Delivery Address:</strong> ${orderData.address}</p>
+      `;
+      
+      // Очищаем данные после отображения
+      localStorage.removeItem('orderData');
+    } else {
+      // Если данных нет, перенаправляем на главную
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
+</html>
