@@ -703,22 +703,27 @@
   // Переход на страницу благодарности
   window.location.href = "thank-you.html";
       
-      fetch('https://script.google.com/macros/s/AKfycbz.../exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      })
-      .then(() => {
-        window.location.href = "thank-you.html";
-        closeModal();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Submission error. Please try again later.');
-      });
+      fetch('https://script.google.com/macros/s/your-deployment-id/exec', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(formData)
+})
+.then(response => response.json())
+.then(data => {
+  if (data.success) {
+    window.location.href = "thank-you.html";
+    closeModal();
+  } else {
+    alert('Error: ' + data.message);
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+  alert('Submission error. Please try again later.');
+});
+
     }
     
     // Создаем падающие листья
