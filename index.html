@@ -703,27 +703,42 @@
   // Переход на страницу благодарности
   window.location.href = "thank-you.html";
       
-      fetch('https://script.google.com/macros/s/AKfycbzLVJ7FyddDNqjk1UTeiYzcZRjc6RI9UPcj0eMnuStAfoiSzkziIIKMkqx9jV3QXkAFeA/exec', {
-  method: 'POST',
+      const airtableToken = "patYPMsSgJimYmRT3.5468abe25d5f77e2c8a9c8db25bdf9e943d50b0c71994fb4c3ae3a6493cec83d";
+
+fetch("https://api.airtable.com/v0/appM7lgadBDQkWmbq/Imported%20table", {
+  method: "POST",
   headers: {
-    'Content-Type': 'application/json'
+    "Authorization": `Bearer ${airtableToken}`,
+    "Content-Type": "application/json"
   },
-  body: JSON.stringify(formData)
+  body: JSON.stringify({
+    fields: {
+      Name: "Test User",
+      Pickup: "Nicosia",
+      Dropoff: "Larnaca Airport",
+      Date: "2025-04-01",
+      Passengers: 2
+    }
+  })
 })
 .then(response => response.json())
 .then(data => {
-  if (data.success) {
-    window.location.href = "thank-you.html";
-    closeModal();
-  } else {
-    alert('Error: ' + data.message);
-  }
+  console.log("Success:", data);
 })
 .catch(error => {
-  console.error('Error:', error);
-  alert('Submission error. Please try again later.');
+  console.error("Error:", error);
 });
 
+})
+.then(response => response.json())
+.then(data => {
+  console.log("Success:", data);
+  alert("Booking sent!");
+})
+.catch(error => {
+  console.error("Error:", error);
+  alert("There was an error submitting your booking.");
+});
     }
     
     // Создаем падающие листья
