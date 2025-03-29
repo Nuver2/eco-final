@@ -703,7 +703,7 @@
   // Переход на страницу благодарности
   window.location.href = "thank-you.html";
       
-      fetch('https://script.google.com/macros/s/AKfycbzLVJ7FyddDNqjk1UTeiYzcZRjc6RI9UPcj0eMnuStAfoiSzkziIIKMkqx9jV3QXkAFeA/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbz.../exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
@@ -711,14 +711,9 @@
         },
         body: JSON.stringify(formData)
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.href = "thank-you.html";;
-          closeModal();
-        } else {
-          alert('Error: ' + data.message);
-        }
+      .then(() => {
+        window.location.href = "thank-you.html";
+        closeModal();
       })
       .catch(error => {
         console.error('Error:', error);
